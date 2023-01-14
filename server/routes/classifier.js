@@ -8,10 +8,20 @@ cohere.init('pjFc7Ok7EfAykYNWQDwj2j7tDk5WPjk7UVMunS4f');
 router.post("/", async function (req, res) {
 (async () => { 
     try{
-        let email = req.body.content[0].split(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g)
+        let email = req.body.content[0].match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
+        email = email.filter(String)
+        // console.log(email[])
+        // let new_arr = []
+        // for (let j = 0; j < email.length; j += 1) {
+        //     if (j % 2 == 1){
+        //         joined = email.slice(j,j-1).join(" ")
+        //         new_arr = new_arr.concat(joined)
+        //         console.log(new_arr)
+        //     }
+        //   }
         const response = await cohere.classify({ 
             model: 'large', 
-            inputs: email.filter(String), 
+            inputs: email, 
             examples: examples}); 
 
         var neutral_score = 0
@@ -31,22 +41,22 @@ router.post("/", async function (req, res) {
 })()
 }); 
 
-router.get("/", async function (req, res) {
-    (async () => { 
-        try{
-            let email = req.body.content[0].split(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g)
-            const response = await cohere.classify({ 
-                model: 'large', 
-                inputs: email.filter(String), 
-                examples: examples}); 
-              res.status(200).send({ "classification": response })
-              console.log(response)
-              console.log(`The confidence levels of the labels are ${JSON.stringify(response.body.classifications)}`); 
-        }
-        catch(err){
-            console.log("Something unexpected happened in the classification process. Please try again.")
-            console.log(err);
-        }
-    })()
-    }); 
+// router.get("/", async function (req, res) {
+//     (async () => { 
+//         try{
+//             let email = req.body.content[0].split(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g)
+//             const response = await cohere.classify({ 
+//                 model: 'large', 
+//                 inputs: email.filter(String), 
+//                 examples: examples}); 
+//               res.status(200).send({ "classification": response })
+//               console.log(response)
+//               console.log(`The confidence levels of the labels are ${JSON.stringify(response.body.classifications)}`); 
+//         }
+//         catch(err){
+//             console.log("Something unexpected happened in the classification process. Please try again.")
+//             console.log(err);
+//         }
+//     })()
+//     }); 
 module.exports = router;
