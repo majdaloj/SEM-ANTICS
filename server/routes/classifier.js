@@ -5,7 +5,7 @@ const examples = require('../data/examples.json')
 cohere.init('pjFc7Ok7EfAykYNWQDwj2j7tDk5WPjk7UVMunS4f'); 
 
 // Respond to GET request to /classify with an array of split user's email
-router.get("/", async function (req, res) {
+router.post("/", async function (req, res) {
 (async () => { 
     try{
         let email = req.body.content[0].split(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g)
