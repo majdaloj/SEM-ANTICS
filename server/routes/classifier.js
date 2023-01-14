@@ -41,22 +41,22 @@ router.post("/", async function (req, res) {
 })()
 }); 
 
-router.get("/", async function (req, res) {
-    (async () => { 
-        try{
-            let email = req.body.content[0].split(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g)
-            const response = await cohere.classify({ 
-                model: 'large', 
-                inputs: email.filter(String), 
-                examples: examples}); 
-              res.status(200).send({ "classification": response })
-              console.log(response)
-              console.log(`The confidence levels of the labels are ${JSON.stringify(response.body.classifications)}`); 
-        }
-        catch(err){
-            console.log("Something unexpected happened in the classification process. Please try again.")
-            console.log(err);
-        }
-    })()
-    }); 
+// router.get("/", async function (req, res) {
+//     (async () => { 
+//         try{
+//             let email = req.body.content[0].split(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g)
+//             const response = await cohere.classify({ 
+//                 model: 'large', 
+//                 inputs: email.filter(String), 
+//                 examples: examples}); 
+//               res.status(200).send({ "classification": response })
+//               console.log(response)
+//               console.log(`The confidence levels of the labels are ${JSON.stringify(response.body.classifications)}`); 
+//         }
+//         catch(err){
+//             console.log("Something unexpected happened in the classification process. Please try again.")
+//             console.log(err);
+//         }
+//     })()
+//     }); 
 module.exports = router;
