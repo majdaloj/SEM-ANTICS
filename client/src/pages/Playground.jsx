@@ -1,34 +1,30 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import SuggestedIssue from "../components/SuggestedIssue";
+import { RiErrorWarningLine } from "react-icons/ri";
+import Spinner from "../components/Spinner/Spinner";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 function Playground() {
-  const { classifications, score } = {
-    score: 0.86,
-    classifications: [
-      {
-        id: 1,
-        input: "Congratulations!",
-        prediction: "positive",
-        confidence: 0.99,
-      },
-      {
-        id: 2,
-        input: "You have been selected as a match for Robinhood.",
-        prediction: "neutral",
-        confidence: 0.86,
-      },
-      {
-        id: 3,
-        input: "Interested in applying?",
-        prediction: "negative",
-        confidence: 0.65,
-      }
-    ],
-  };
+  const [draftBody, setDraftBody] = useState("");
+  const [loading, setLoading] = useState(false)
+  const [classifications, setClassifications] = useState();
+  const [score, setScore] = useState();
 
   const onSubmit = () => {
-    
-  }
+    setLoading(true)
+    axios
+      .post(`${apiUrl}/classify`, {
+        content: [draftBody],
+      })
+      .then((res) => {
+          setClassifications(res.data.classification.body.classifications);
+          setScore(res.data.score)
+          setDraftBody("")
+          setLoading(false)
+      })
+  };
 
   return (
     <div className="mb-5">
@@ -36,31 +32,51 @@ function Playground() {
         <h1>Playground</h1>
       </div>
       <div className="mb-4 row">
-        {/* <div className="row p-0">
-            <div className="col text-center text-muted">PREVIOUS DRAFT</div>
-            <div className="col text-center text-muted p-0">NEW DRAFT</div>
-        </div> */}
         <div style={{ height: "65vh" }} className="row gap-3">
-            <div className="col form-control">
-            <div className="col text-center text-muted mb-2">Previous Draft</div>
-                {classifications.map((c) => {
-                    if (c.prediction === 'neutral') {
-                        return <span key={c.id}>{c.input + ' '}</span>
-                    } else {
-                        return <span key={c.id}><SuggestedIssue {...c}/><span>{' '}</span></span>
-                    }
-                })}
-            </div> 
-            <textarea
+          <div className="col form-control">
+            <div className="col text-center text-muted mb-2">
+              Previous Draft
+            </div>
+            {classifications && !loading &&
+              classifications.map((c) => {
+                if (c.prediction === "neutral") {
+                  return <span key={c.id}>{c.input + " "}</span>;
+                } else {
+                  return (
+                    <span key={c.id}>
+                      <SuggestedIssue {...c} />
+                      <span> </span>
+                    </span>
+                  );
+                }
+              })}
+            { loading && <div className="h-100 d-flex justify-content-center align-items-center"><Spinner /></div>}
+            {!classifications && !loading && (
+              <div className="d-flex justify-content-center mt-3 align-items-center fw-bold">
+                <RiErrorWarningLine size={20} className="me-2" />
+                You have no previous drafts yet!
+              </div>
+            )}
+          </div>
+          <textarea
+            value={draftBody}
+            onChange={(e) => setDraftBody(e.target.value)}
             className="col form-control"
             placeholder="Write a new draft..."
-            ></textarea>
+          ></textarea>
         </div>
         <div className="mt-3 row gap-3">
-            <div className="col text-center">Score: {Math.round(score * 100)}%</div>
+          {score && (
             <div className="col text-center">
-                <button className="btn btn-primary">Submit</button>
+              Score: {Math.round(score * 100)}%
             </div>
+          )}
+          {!score && <div className="col text-center">Score: N/A</div>}
+          <div className="col text-center">
+            <button className="btn btn-primary" onClick={onSubmit}>
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </div>

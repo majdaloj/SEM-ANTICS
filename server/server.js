@@ -1,10 +1,11 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const port = 3000
 const classifier = require("./routes/classifier");
 // Condense compiler info
 app.use(express.json());
-console.log('test1')
+app.use(cors())
 app.use("/classify", classifier)
 app.get("/", async (req, res, next) => {
     res.status(200).json({ ping: "pong" });
