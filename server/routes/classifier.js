@@ -1,14 +1,26 @@
+const express = require("express");
 const router = express.Router();
 const cohere = require('cohere-ai'); 
+const examples = require('../data/examples.json')
 cohere.init('pjFc7Ok7EfAykYNWQDwj2j7tDk5WPjk7UVMunS4f'); 
-router.post("/classify", async function (req, res, next) {
+
+// Respond to GET request to /classify with an array of split user's email
+router.get("/", async function (req, res) {
 (async () => { 
-  const response = await cohere.classify({ 
-    model: 'large', 
-    inputs: ["This item was broken when it arrived", "This item broke after 3 weeks"], 
-    examples: [{"text": "The order came 5 days early", "label": "positive"}, {"text": "The item exceeded my expectations", "label": "positive"}, {"text": "I ordered more for my friends", "label": "positive"}, {"text": "I would buy this again", "label": "positive"}, {"text": "I would recommend this to others", "label": "positive"}, {"text": "The package was damaged", "label": "negative"}, {"text": "The order is 5 days late", "label": "negative"}, {"text": "The order was incorrect", "label": "negative"}, {"text": "I want to return my item", "label": "negative"}, {"text": "The item\'s material feels low quality", "label": "negative"}] 
-  }); 
-  console.log(response)
-  console.log(`The confidence levels of the labels are ${JSON.stringify(response.body.classifications)}`); 
+    try{
+        let email = req.body.content
+        const response = await cohere.classify({ 
+            model: 'large', 
+            inputs: email, 
+            examples: examples}); 
+          res.status(200).send({ "classification": response })
+          console.log(response)
+          console.log(`The confidence levels of the labels are ${JSON.stringify(response.body.classifications)}`); 
+    }
+    catch(err){
+        console.log("Something unexpected happened in the classification process. Please try again.")
+        console.log("error");
+    }
 })()
 }); 
+module.exports = router;
