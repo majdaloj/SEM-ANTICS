@@ -1,0 +1,19 @@
+{ 
+    "examples":{
+    "The order came 5 days early": "positive", 
+    "The item exceeded my expectations": "positive", 
+    "I ordered more for my friends": "positive", 
+    "I would buy this again": "positive", 
+    "I would recommend this to others": "positive", 
+    "The package was damaged": "negative", 
+    "The order is 5 days late": "negative", 
+    "The order was incorrect": "negative", 
+    "I want to return my item": "negative", 
+    "The item's material feels low quality": "negative", 
+    "The product was okay": "neutral", 
+    "I received five items in total": "neutral", 
+    "I bought it from the website": "neutral", 
+    "I used the product this morning": "neutral", 
+    "The product arrived yesterday": "neutral"
+}
+}
