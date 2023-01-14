@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: process.env.API_KEY;,
+  apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
   projectId: process.env.PROJECT_ID,
   storageBucket: process.env.STORAGE_BUCKET,
