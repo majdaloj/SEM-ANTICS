@@ -5,13 +5,23 @@ const examples = require('../data/examples.json')
 cohere.init('pjFc7Ok7EfAykYNWQDwj2j7tDk5WPjk7UVMunS4f'); 
 
 // Respond to GET request to /classify with an array of split user's email
-router.get("/", async function (req, res) {
+router.post("/", async function (req, res) {
 (async () => { 
     try{
-        let email = req.body.content[0].split(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g)
+        let email = req.body.content[0].match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
+        email = email.filter(String)
+        // console.log(email[])
+        // let new_arr = []
+        // for (let j = 0; j < email.length; j += 1) {
+        //     if (j % 2 == 1){
+        //         joined = email.slice(j,j-1).join(" ")
+        //         new_arr = new_arr.concat(joined)
+        //         console.log(new_arr)
+        //     }
+        //   }
         const response = await cohere.classify({ 
             model: 'large', 
-            inputs: email.filter(String), 
+            inputs: email, 
             examples: examples}); 
 
         var neutral_score = 0
