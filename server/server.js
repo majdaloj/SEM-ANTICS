@@ -3,11 +3,8 @@ const cors = require('cors')
 const app = express()
 const port = 3000
 const classifier = require("./routes/classifier");
-require("dotenv").config();
+require('dotenv').config();
 
-console.log(process.env);
-
-// Condense compiler info
 app.use(express.json());
 app.use(cors())
 app.use("/classify", classifier)
