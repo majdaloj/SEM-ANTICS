@@ -4,21 +4,14 @@ const cohere = require('cohere-ai');
 const examples = require('../data/examples.json')
 cohere.init('pjFc7Ok7EfAykYNWQDwj2j7tDk5WPjk7UVMunS4f'); 
 
+const db = require('../firebase');
+
 // Respond to GET request to /classify with an array of split user's email
 router.post("/", async function (req, res) {
 (async () => { 
     try{
         let email = req.body.content[0].match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
         email = email.filter(String)
-        // console.log(email[])
-        // let new_arr = []
-        // for (let j = 0; j < email.length; j += 1) {
-        //     if (j % 2 == 1){
-        //         joined = email.slice(j,j-1).join(" ")
-        //         new_arr = new_arr.concat(joined)
-        //         console.log(new_arr)
-        //     }
-        //   }
         const response = await cohere.classify({ 
             model: 'large', 
             inputs: email, 
@@ -32,6 +25,9 @@ router.post("/", async function (req, res) {
           }
         var neutral_average = neutral_score/arr.length
           res.status(200).send({ "classification": response, "score": neutral_average })
+          await db.collection('emails').doc().set(
+            { "classification": response, "score": neutral_average }
+            );
           console.log(`The confidence levels of the labels are ${JSON.stringify(response.body.classifications)}`); 
     }
     catch(err){
