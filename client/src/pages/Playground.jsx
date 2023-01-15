@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import SuggestedIssue from "../components/SuggestedIssue";
 import { RiErrorWarningLine } from "react-icons/ri";
 import Spinner from "../components/Spinner/Spinner";
+import Draft from "../components/Draft";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -15,7 +15,7 @@ function Playground() {
   const onSubmit = () => {
     setLoading(true)
     axios
-      .post(`${apiUrl}/classify`, {
+      .post(`${apiUrl}/draft`, {
         content: [draftBody],
       })
       .then((res) => {
@@ -38,18 +38,8 @@ function Playground() {
               Previous Draft
             </div>
             {classifications && !loading &&
-              classifications.map((c) => {
-                if (c.prediction === "neutral") {
-                  return <span key={c.id}>{c.input + " "}</span>;
-                } else {
-                  return (
-                    <span key={c.id}>
-                      <SuggestedIssue {...c} />
-                      <span> </span>
-                    </span>
-                  );
-                }
-              })}
+              <Draft classifications={classifications}/>
+            }
             { loading && <div className="h-100 d-flex justify-content-center align-items-center"><Spinner /></div>}
             {!classifications && !loading && (
               <div className="d-flex justify-content-center mt-3 align-items-center fw-bold">
