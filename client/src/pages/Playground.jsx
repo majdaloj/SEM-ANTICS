@@ -44,7 +44,7 @@ function Playground() {
             {!classifications && !loading && (
               <div className="d-flex justify-content-center mt-3 align-items-center fw-bold">
                 <RiErrorWarningLine size={20} className="me-2" />
-                You have no previous drafts yet!
+                You have no previous drafts from this session!
               </div>
             )}
           </div>
