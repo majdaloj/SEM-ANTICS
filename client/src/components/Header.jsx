@@ -52,7 +52,16 @@ function Header() {
                 Past Drafts
               </Link>
             </li>
+            <li className="nav-item">
+              <Link
+                className={clsx("nav-link", pathname === "/learn" && "active")}
+                to="/learn"
+              >
+                Learn
+              </Link>
+            </li>
           </ul>
+
           {!showHamburgerMenu && (
             <div className="text-light">Overall Score: 99%</div>
           )}
