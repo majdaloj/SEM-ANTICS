@@ -1,5 +1,6 @@
 import React from "react";
 import Options from "../components/Options";
+import './Learning.css'
 
 function Learning() {
   return (
@@ -20,7 +21,7 @@ function Learning() {
       >
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad rad-ans"
           name="btnradio"
           id="btnradio011"
           autoComplete="off"
@@ -30,7 +31,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check "
+          className="btn-check rad"
           name="btnradio"
           id="btnradio022"
           autoComplete="off"
@@ -40,7 +41,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad"
           name="btnradio"
           id="btnradio033"
           autoComplete="off"
@@ -62,7 +63,7 @@ function Learning() {
       >
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad"
           name="0btnradio"
           id="0btnradio011"
           autoComplete="off"
@@ -72,7 +73,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check "
+          className="btn-check rad rad-ans"
           name="0btnradio"
           id="0btnradio022"
           autoComplete="off"
@@ -82,7 +83,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad"
           name="0btnradio"
           id="0btnradio033"
           autoComplete="off"
@@ -105,7 +106,7 @@ function Learning() {
       >
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad"
           name="1btnradio1"
           id="btnradio111"
           autoComplete="off"
@@ -115,7 +116,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check "
+          className="btn-check rad"
           name="1btnradio1"
           id="btnradio222"
           autoComplete="off"
@@ -125,7 +126,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad rad-ans"
           name="1btnradio1"
           id="btnradio333"
           autoComplete="off"
@@ -149,7 +150,7 @@ function Learning() {
       >
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad rad-ans"
           name="2btnradio"
           id="btnradio1111"
           autoComplete="off"
@@ -159,7 +160,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check "
+          className="btn-check rad"
           name="2btnradio"
           id="btnradio2222"
           autoComplete="off"
@@ -169,7 +170,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad rad-ans"
           name="2btnradio"
           id="btnradio3333"
           autoComplete="off"
@@ -192,7 +193,7 @@ function Learning() {
       >
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad"
           name="3btnradio"
           id="btnradio11111"
           autoComplete="off"
@@ -202,7 +203,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check "
+          className="btn-check rad rad-ans"
           name="3btnradio"
           id="btnradio22222"
           autoComplete="off"
@@ -212,7 +213,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad"
           name="3btnradio"
           id="btnradio33333"
           autoComplete="off"
@@ -236,7 +237,7 @@ function Learning() {
       >
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad"
           name="4btnradio"
           id="btnradio1111111"
           autoComplete="off"
@@ -246,7 +247,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check "
+          className="btn-check rad"
           name="4btnradio"
           id="btnradio2222222"
           autoComplete="off"
@@ -256,7 +257,7 @@ function Learning() {
         </label>
         <input
           type="radio"
-          className="btn-check"
+          className="btn-check rad rad-ans"
           name="4btnradio"
           id="btnradio3333333"
           autoComplete="off"

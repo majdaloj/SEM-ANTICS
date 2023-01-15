@@ -1,0 +1,7 @@
+.rad:checked + label {
+    background-color: #d9534f !important;
+}
+
+.rad-ans:checked + label {
+    background-color: #4bbf73 !important;
+}
