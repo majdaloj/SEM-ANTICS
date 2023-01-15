@@ -6,11 +6,11 @@ cohere.init('pjFc7Ok7EfAykYNWQDwj2j7tDk5WPjk7UVMunS4f');
 
 const db = require('../firebase');
 
-// Respond to GET request to /classify with an array of split user's email
-router.post("/", async function (req, res) {
+// Respond to POST request to /classify with an array of split user's email
+router.post("/draft", async function (req, res) {
 (async () => { 
     try{
-        let email = req.body.content[0].match(/[^.?!]+[.!?]+[\])'"`’”]*/g)
+        let email = req.body.content[0].match(/[^.?!]+[.!?]+[\])'"`’”]*|.+/g)
         email = email.filter(String)
         const response = await cohere.classify({ 
             model: 'large', 
@@ -36,6 +36,26 @@ router.post("/", async function (req, res) {
     }
 })()
 }); 
+
+// Respond to GET request to get all drafts
+router.get("/drafts", async function (req, res) {
+    (async () => { 
+        try{
+            const snapshot = await db.collection('emails').get();
+            let drafts = []
+            snapshot.forEach((doc) => {
+                drafts.push(doc.data())
+                // return doc.data()
+            //   console.log(doc.id, '=>', doc.data());
+            });
+            res.status(200).send(drafts)
+        }
+        catch(err){
+            console.log("Something unexpected happened in the classification process. Please try again.")
+            console.log(err);
+        }
+    })()
+    }); 
 
 // router.get("/", async function (req, res) {
 //     (async () => { 

@@ -15,7 +15,7 @@ function Playground() {
   const onSubmit = () => {
     setLoading(true)
     axios
-      .post(`${apiUrl}/classify`, {
+      .post(`${apiUrl}classify/draft`, {
         content: [draftBody],
       })
       .then((res) => {
