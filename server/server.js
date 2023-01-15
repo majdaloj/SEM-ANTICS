@@ -7,7 +7,7 @@ require('dotenv').config();
 
 app.use(express.json());
 app.use(cors())
-app.use("/classify", classifier)
+app.use("/draft", classifier)
 app.get("/", async (req, res, next) => {
   res.status(200).json({ ping: "pong" });
 });

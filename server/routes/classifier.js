@@ -7,7 +7,7 @@ cohere.init('pjFc7Ok7EfAykYNWQDwj2j7tDk5WPjk7UVMunS4f');
 const db = require('../firebase');
 
 // Respond to POST request to /classify with an array of split user's email
-router.post("/draft", async function (req, res) {
+router.post("/", async function (req, res) {
 (async () => { 
     try{
         let email = req.body.content[0].match(/[^.?!]+[.!?]+[\])'"`’”]*|.+/g)
@@ -38,7 +38,7 @@ router.post("/draft", async function (req, res) {
 }); 
 
 // Respond to GET request to get all drafts
-router.get("/drafts", async function (req, res) {
+router.get("/", async function (req, res) {
     (async () => { 
         try{
             const snapshot = await db.collection('emails').get();
